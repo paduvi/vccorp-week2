@@ -1,8 +1,10 @@
-import tensorflow as tf
+#!/usr/bin/env python
+
 import DataUtils
 import numpy as np
 import random
 import math
+import click
 
 
 def calculateProbability(x, mean, stdev):
@@ -47,7 +49,8 @@ def getAccuracy(testSet, predictions):
     return (correct / float(len(testSet))) * 100.0
 
 
-if __name__ == '__main__':
+@click.command()
+def classify():
     input_data, output_data = DataUtils.load_data("iris.txt")
     z = zip(input_data, output_data)
     random.shuffle(z)
@@ -59,12 +62,6 @@ if __name__ == '__main__':
 
     test_input_data = input_data[-20:]
     test_label_data = output_data[-20:]
-
-    # print test_input_data.shape
-
-    # Iris-setosa: 1
-    # Iris-versicolor: 2
-    # Iris-virginica: 3
 
     labels = {
         1: 'Iris-setosa',
@@ -92,12 +89,16 @@ if __name__ == '__main__':
     # test model
     predictions = getPredictions(summaries, test_input_data)
     accuracy = getAccuracy(test_label_data, predictions)
-    print('\nAccuracy: {0}%').format(accuracy)
+    print '\nAccuracy: {0}%'.format(accuracy)
 
     print '\n' + '=' * 20 + '\n'
     inputVector = [6.1, 2.9, 4.5, 1.3]
     predict_label = predict(summaries, inputVector)
     probabilities = calculateClassProbabilities(summaries, inputVector)
-    print ('Input vector: {0}').format(inputVector)
-    print ('Probabilities for each class: {0}').format(probabilities)
-    print ('Predict Class: {0} - {1}\n').format(predict_label, labels[predict_label])
+    print 'Input vector: {0}'.format(inputVector)
+    print 'Probabilities for each class: {0}'.format(probabilities)
+    print 'Predict Class: {0} - {1}\n'.format(predict_label, labels[predict_label])
+
+
+if __name__ == '__main__':
+    classify()
