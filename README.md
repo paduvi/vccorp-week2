@@ -93,4 +93,17 @@ es.search(index='posts', type='blog', q='+name:(mary john) +date:>2014-09-10 +(a
  
  d - `filter`: chỉ dùng để include/exclude query result, không tác động lên score
  
-  
+- Implement: bắt chước khung search trong Gmail:
+ 
+  1. Để kiếm dữ liệu mẫu, mình sử dụng tool `gmvault`: `pip install gmvault`
+  
+  2. Sửa lại email trong file `sync_mail.sh` rồi chạy: `./sync_mail.sh`
+  
+  3. Đánh index dữ liệu mail đã sync được: `./parsing-and-index-mail.py`
+  
+  4. Tiến hành search: `./demo-search-email.py query=vccorp`
+  
+  ** Kết quả:**
+  ![Test ElasticSearch Mail](http://i.imgur.com/gHkLf2W.png)
+ 
+ 
