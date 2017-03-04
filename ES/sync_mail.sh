@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-gmvault sync viet3695@gmail.com -d email/archived
+gmvault sync example@gmail.com -d email/archived
