@@ -1,6 +1,6 @@
-# Phan Đức Việt - Thực tập VCCorp tuần 2
-Báo cáo thực tập VCCorp tuần 2: ElasticSearch, Naive Bayes và K-Means
-
+# Phan Đức Việt - Báo cáo thực tập tuần 2
+ElasticSearch, Naive Bayes và K-Means:
+![KMeans Picture Compress](http://i.imgur.com/ggqQGzB.png)
 ### ElasticSearch:
 - ElasticSearch là 1 Database với khả năng full-text search cực kỳ tốt, thiết kế dựa trên Apache Lucene search. Nó có thể lưu trữ dữ liệu lên tới hàng tỉ record, mà tốc độ query vẫn được đảm bảo gần như Real-time.
 - Get record theo id:
