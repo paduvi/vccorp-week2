@@ -10,7 +10,6 @@ import elasticsearch
 @click.argument('query', required=True)
 @click.option('--raw-result/--no-raw-result', default=False)
 def search(query, raw_result):
-    print raw_result
     es = elasticsearch.Elasticsearch()
     matches = es.search('mail', q=query)
     hits = matches['hits']['hits']
