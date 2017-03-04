@@ -101,7 +101,7 @@ es.search(index='posts', type='blog', q='+name:(mary john) +date:>2014-09-10 +(a
   
   3. Đánh index dữ liệu mail đã sync được: `./parsing-and-index-mail.py`
   
-  4. Tiến hành search: `./demo-search-email.py query=vccorp`
+  4. Tiến hành search: `./demo-search-email.py vccorp`
   
   Kết quả: ![Test ElasticSearch Mail](http://i.imgur.com/gHkLf2W.png)
  
@@ -125,12 +125,18 @@ es.search(index='posts', type='blog', q='+name:(mary john) +date:>2014-09-10 +(a
  - File thực thi:
  ```
  cd KMeans
- ./kmeans-compressor.py
+ ./kmeans-compressor.py [OPTIONS] [K] [INP] [OUT]
  ```
  
  Options:
- - `k`: số lượng màu sau khi xử lý (Default: 192)
+ - `[k]`: số lượng màu sau khi xử lý (Default: 192)
+ - `[inp]`: đường dẫn tới ảnh input
+ - `[out]`: đường dẫn output
  
- Kết quả: ![KMeans Picture Compress](http://i.imgur.com/ggqQGzB.png)
+ Kết quả: 
+ ![Imgur](http://i.imgur.com/2c4F6wa.png)
+ ![Imgur](http://i.imgur.com/vYmznMI.png)
+ ![KMeans Picture Compress](http://i.imgur.com/ggqQGzB.png)
+ 
  
  
