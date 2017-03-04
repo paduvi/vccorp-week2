@@ -129,7 +129,7 @@ es.search(index='posts', type='blog', q='+name:(mary john) +date:>2014-09-10 +(a
  ```
  
  Options:
- - `k`: số lượng màu sau khi xử lý (Default: 196)
+ - `k`: số lượng màu sau khi xử lý (Default: 192)
  
  Kết quả: ![KMeans Picture Compress](http://i.imgur.com/ggqQGzB.png)
  
