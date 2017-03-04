@@ -6,31 +6,91 @@ Báo cáo thực tập VCCorp tuần 2: ElasticSearch, Naive Bayes và K-Means
 - Get record theo id:
 ```
 es.get(index='posts', doc_type='blog', id=2)
+# GET /posts/blog/2
 ```
 - Search:
 
   - Dùng cú pháp của Lucene:
   ```
 es.search(index='posts', q='author:"Benjamin Pollack"')
+# GET /posts/_search?q=author%3ABenjamin Pollack
+
 es.search(index='posts', q='Santa')
+# GET /posts/_search?q=Santa
+
 es.search(index='posts', q='author:"Benjamin Pollack" python')
+# GET /posts/_search?q=author%3ABenjamin Pollack+python
+
+es.search(index='posts', type='blog', q='+name:(mary john) +date:>2014-09-10 +(aggregations geo)') # +:or
+# GET /posts/blog/_search?q=%2Bname%3A(mary+john)+%2Bdate%3A%3E2014-09-10+%2B(aggregations+geo)
   ```
 
-  - Sử dụng build-in option (`match`):
+  - Sử dụng query DSL:
   
   ```
   es.search(index="sw", body={"query": {"match": {'name':'Darth Vader'}}})
   ```
-
-  - Tiền tố (`prefix`):
+  ```
+  GET /sw/_search
+  {
+      "query": {
+          "match": {
+              "name": "Darth Vader"
+          }
+      }
+  }
+  ```
   ```
   es.search(index="sw", body={"query": {"prefix" : { "name" : "lu" }}})
   ```
-
-  - Từ khóa `like`:
+  ```
+  GET /sw/_search
+  {
+      "query": {
+          "prefix": {
+              "name": "lu"
+          }
+      }
+  }
+  ```
   ```
   es.search(index="sw", body={"query": {"multi_match": 
                              {"fields": ["name"], "query": "jaba", "fuzziness": "AUTO"}}})
+  
+  # range, term, terms, exists
   ```
+  - Kết hợp nhiều mệnh đề:
+  ```
+  {
+      "bool": {
+          "must":     { "match": { "tweet": "elasticsearch" }},
+          "must_not": { "match": { "name":  "mary" }},
+          "should":   { "match": { "tweet": "full text" }},
+          "filter":   { "range": { "age" : { "gt" : 30 }} }
+      }
+  }
+  ```
+  ```
+  {
+      "bool": {
+          "must": { "match":   { "email": "business opportunity" }},
+          "should": [
+              { "match":       { "starred": true }},
+              { "bool": {
+                  "must":      { "match": { "folder": "inbox" }},
+                  "must_not":  { "match": { "spam": true }}
+              }}
+          ],
+          "minimum_should_match": 1
+      }
+  }
+  ```
+ a - `must`: bắt buộc phải match mệnh đề (có tính score)
  
-  - ...
+ b - `must_not`: bắt buộc phải không match mệnh đề (có tính score)
+ 
+ c - `should`: match càng nhiều mệnh đề score càng cao, tuy nhiên nếu không match thì không ảnh hưởng tới query result
+ 
+ d - `filter`: chỉ dùng để include/exclude query result, không tác động lên score
+ 
+  
